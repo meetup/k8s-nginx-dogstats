@@ -18,7 +18,7 @@ help:
 __package-build:
 	docker build -t $(PUBLISH_TAG) .
 
-package: __component-test __package-build ## Create docker image and validate it against component tests.
+package: __package-build __component-test ## Create docker image and validate it against component tests.
 
 publish: package ## Package and push to registry.
 	docker push $(PUBLISH_TAG)
