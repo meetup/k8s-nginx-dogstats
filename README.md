@@ -1,4 +1,4 @@
-# Nginx Dogstats metrics via Fluentd for Kubernetes.
+# Nginx Dogstats metrics via Fluentd for Kubernetes
 
 Empower engineers with a default pipeline of
 nginx metrics to Datadog from your cluster.
