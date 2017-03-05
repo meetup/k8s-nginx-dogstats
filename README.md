@@ -1,4 +1,7 @@
 # Nginx Dogstats metrics via Fluentd for Kubernetes
+[![Build Status](https://travis-ci.org/meetup/k8s-nginx-dogstats.svg?branch=master)](https://travis-ci.org/meetup/k8s-nginx-dogstats)
+[![](https://images.microbadger.com/badges/version/meetup/k8s-nginx-dogstats.svg)](https://microbadger.com/images/meetup/k8s-nginx-dogstats "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/meetup/k8s-nginx-dogstats.svg)](https://microbadger.com/images/meetup/k8s-nginx-dogstats "Get your own image badge on microbadger.com")
 
 Empower engineers with a default pipeline of
 nginx metrics to Datadog from your cluster.

@@ -18,7 +18,7 @@ before_install:
   - sudo pip install envtpl
 
   - >
-    if [ -n "$DOCKER_LOGIN" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
+    if [ -n "$DOCKER_USER" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login --username $DOCKER_USER --password $DOCKER_PASS;
     fi
 
