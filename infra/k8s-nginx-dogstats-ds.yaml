@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: k8s-nginx-dogstats
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      name: k8s-nginx-dogstats
+  template:
+    metadata:
+      labels:
+        name: k8s-nginx-dogstats
+        date: {{ DATE }}
+    spec:
+      containers:
+      - name: k8s-nginx-dogstats-fluentd
+        image: {{PUBLISH_TAG}}
+        imagePullPolicy: Always
+        env:
+        volumeMounts:
+        - name: container-logs
+          mountPath: /var/lib/docker/containers/
+        - name: var-logs
+          mountPath: /var/log/
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      volumes:
+      - name: container-logs
+        hostPath:
+            path: /var/lib/docker/containers/
+      - name: var-logs
+        hostPath:
+            path: /var/log/
+      - name: docker-socket
+        hostPath:
+            path: /var/run/docker.sock

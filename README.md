@@ -1,4 +1,9 @@
-# Nginx logs to Dogstatsd via Fluentd for Kubernetes
+# Nginx Dogstats metrics via Fluentd for Kubernetes
+
+Empower engineers with a default pipeline of
+nginx metrics to Datadog from your cluster.
+
+## About
 
 We like k8s and we use nginx a lot, we'll likely
 use it even more as a part of Cloud Endpoints.
