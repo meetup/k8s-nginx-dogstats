@@ -15,6 +15,7 @@ class JSONTransformer
         "path" => json["path"].split("?")[0],
         # Here we start matching existing tags in datadog.
         "namespace" => json["kubernetes"]["namespace_name"],
+        "kube_namespace" => json["kubernetes"]["namespace_name"],
         "container_name" => json["kubernetes"]["container_name"],
         "pod_name" => json["kubernetes"]["namespace_name"] + "/" + json["kubernetes"]["pod_name"]
       }.merge(labels)
