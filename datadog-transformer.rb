@@ -1,4 +1,15 @@
 class JSONTransformer
+  def initialize
+    @config = (File.exists?("/opt/nginx_dogstats.yaml") ? YAML.load_file("/opt/nginx_dogstats.yaml") : nil)
+  end
+
+  def tag(path)
+    return path unless @config.nil? || @config["path_aliases"]
+    @config["path_aliases"].reduce(nil) { |a, el|
+      el.values.first if /#{el.keys.first}/.match(path)
+    } || path
+  end
+
   def transform(json)
     labels =
       if json["kubernetes"].key?("labels")
