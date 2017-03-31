@@ -43,7 +43,6 @@ RUN rm -rf /var/log/google-fluentd
 
 ADD google-fluentd.conf /etc/google-fluentd/google-fluentd.conf
 ADD datadog-transformer.rb /opt/datadog-transformer.rb
-ADD nginx_dogstats.yaml /opt/nginx_dogstats.yaml
 
 # Start Fluentd to pick up our config that watches Docker container logs.
 ENTRYPOINT ["/usr/sbin/google-fluentd"]
