@@ -9,3 +9,4 @@ nginx.request_time:0|h|#status_code:401,path:/endpoint,namespace:best,kube_names
 nginx.request_time:41|h|#status_code:403,path:/endpoint,namespace:best,kube_namespace:best,container_name:esp,pod_name:best/cloud-endpoint-1816737494-czjqw
 nginx.request_time:17|h|#status_code:200,path:/endpoint,namespace:best,kube_namespace:best,container_name:esp,pod_name:best/cloud-endpoint-1816737494-czjqw
 nginx.request_time:0|h|#status_code:404,path:/,namespace:best,kube_namespace:best,container_name:esp,pod_name:best/cloud-endpoint-1816737494-czjqw
+nginx.upstream_response_time:3|h|#status_code:200,path:/endpoint,namespace:best,kube_namespace:best,container_name:esp,pod_name:best/cloud-endpoint-1816737494-czjqw
