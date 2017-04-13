@@ -12,6 +12,7 @@ docker run -d \
   --name fluentd \
   --link statsd-mock:dogstatsd.datadog \
   -v $DIR/containers:/var/log/containers \
+  -v $DIR/nginx_dogstats.yaml:/opt/nginx_dogstats.yaml \
   $publish_tag
 
 # Give fluentd a second to process.

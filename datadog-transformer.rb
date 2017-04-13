@@ -1,4 +1,17 @@
+require 'yaml'
+
 class JSONTransformer
+  def initialize
+    @config = File.exists?("/opt/nginx_dogstats.yaml") ? YAML.load_file("/opt/nginx_dogstats.yaml") : {}
+  end
+
+  def path_tag(path)
+    return path unless @config.key?("path_aliases")
+    return @config["path_aliases"].reduce(nil) { |a, el|
+      el.values.first if /#{el.keys.first}/.match(path)
+    } || path
+  end
+
   def transform(json)
     labels =
       if json["kubernetes"].key?("labels")
@@ -12,7 +25,7 @@ class JSONTransformer
       "status_code" => json["code"],
       "tags" => {
         "status_code" => json["code"],
-        "path" => json["path"].split("?")[0],
+        "path" => self.path_tag(json["path"].split("?")[0]),
         # Here we start matching existing tags in datadog.
         "namespace" => json["kubernetes"]["namespace_name"],
         "kube_namespace" => json["kubernetes"]["namespace_name"],

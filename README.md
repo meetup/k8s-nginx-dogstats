@@ -27,6 +27,32 @@ log_format timed_combined '$remote_addr - $remote_user [$time_local] '
 
 Upstream_response_time and pipe are not yet implemented.
 
+### Metric tags
+
+Each metric will be annotated with a set of tags including both kubernetes metadata
+as well as request information.
+
+### path_aliases
+
+Many applications expose endpoints with paths containing dynamic portions. You
+may find it useful to collapse these into an single alias to reduce their cardinality.
+
+You can do so by volume mounting a yaml configuration file
+```
+$ docker run  -v $PWD/nginx_dogstats.yaml:/opt/nginx_dogstats.yaml  ...
+```
+
+This file expects a key named `path_aliases` which binds to a list of path
+patterns and alias names. Below is an example
+
+```yaml
+path_aliases:
+  - "^/cupcakes/.+$" : "/cupcakes/{id}"
+```
+
+Given the above a request with a path `/cupcakes/123` would yield a path tag of `/cupcakes/{id}`
+
+
 ## Testing
 
 There's a component test on the artifact.
