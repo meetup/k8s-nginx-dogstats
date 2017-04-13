@@ -20,6 +20,11 @@ class JSONTransformer
         {}
       end
 
+    upstream_time = {}
+    # capture upstream response time, only if it's defined
+    if json["upstream_response_time"] != "-"
+      upstream_time["upstream_response_time_ms"] = (json["upstream_response_time"].to_f * 1000).to_i
+    end
     record = {
       "request_time_ms" => (json["request_time"].to_f * 1000).to_i,
       "status_code" => json["code"],
@@ -32,7 +37,7 @@ class JSONTransformer
         "container_name" => json["kubernetes"]["container_name"],
         "pod_name" => json["kubernetes"]["namespace_name"] + "/" + json["kubernetes"]["pod_name"]
       }.merge(labels)
-    }
+    }.merge(upstream_time)
 
     return record
   end
