@@ -8,7 +8,11 @@ class JSONTransformer
   def path_tag(path)
     return path unless @config.key?("path_aliases")
     return @config["path_aliases"].reduce(nil) { |a, el|
-      el.values.first if /#{el.keys.first}/.match(path)
+      if /#{el.keys.first}/.match(path)
+        el.values.first
+      else
+        a
+      end
     } || path
   end
 

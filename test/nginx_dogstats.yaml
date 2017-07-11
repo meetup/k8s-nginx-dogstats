@@ -1,2 +1,3 @@
 path_aliases:
+  - "^/saved-events/[0-9]+/.+$": "/saved-events/:memberId/:eventToken"
   - "^/cupcakes/.+$" : "/cupcakes/{id}"
