@@ -43,8 +43,8 @@ The majority of metrics below are collected from [nginx log module provided info
 | nginx.request_time.{avg,count,max,median} | statistics about request processing time in seconds with a milliseconds resolution; time elapsed between the first bytes were read from the client and the log write after the last bytes were sent to the client |
 | nginx.server_zone.responses.2xx | number of 2xx HTTP response code responses |
 | nginx.server_zone.responses.3xx | number of 3xx HTTP response code responses |
-| nginx.server_zone.response.4xx | number of 4xx HTTP response code responses |
-| nginx.server_zone.response.5xx | number of 5xx HTTP response code responses |
+| nginx.server_zone.responses.4xx | number of 4xx HTTP response code responses |
+| nginx.server_zone.responses.5xx | number of 5xx HTTP response code responses |
 | nginx.upstream_response_time.{avg,count,max,median, 95percentile} | statistics about time spent on receiving the response from the upstream server; the time is kept in seconds with millisecond resolution. You may find this a better measure of your proxied application's latency performance. `nginx.request_time` will also include client request time. As a result, slow clients will add latency not attributed to your proxied application |
 
 #### Tags
