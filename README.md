@@ -54,7 +54,7 @@ Tags can be used to group metrics on order to drill down to the source of a metr
 | | |
 |-|-|
 | status_code | precise HTTP response code |
-| path | the HTTP request path. see [path_aliases](path_aliases) notes below  |
+| path | the HTTP request path. see [path_aliases](#path_aliases) notes below  |
 | namespace | kubernetes provided namespace |
 | kube_namespace | (same as above)  |
 | container_name | kubernetes provided container name |
@@ -63,7 +63,7 @@ Tags can be used to group metrics on order to drill down to the source of a metr
 ### path_aliases
 
 Many applications expose endpoints with paths containing dynamic segments representing resource identifiers. You
-may find it useful to collapse these into an single alias to reduce metric `path` [tag](tag) cardinality.
+may find it useful to collapse these into an single alias to reduce metric `path` [tag](#tag) cardinality.
 
 You can do so by volume mounting a yaml configuration file
 ```
