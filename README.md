@@ -4,15 +4,15 @@
 [![](https://images.microbadger.com/badges/image/meetup/k8s-nginx-dogstats.svg)](https://microbadger.com/images/meetup/k8s-nginx-dogstats "Get your own image badge on microbadger.com")
 
 Empower engineers with a default pipeline of
-nginx metrics to Datadog from your cluster.
+nginx [RED](https://www.weave.works/blog/the-red-method-key-metrics-for-microservices-architecture/) metrics to Datadog from your cluster.
 
 ## About
 
 We like [k8s](https://kubernetes.io/) and we use [nginx](https://www.nginx.com/) a lot, we'll likely
 use it even more as a part of Cloud Endpoints.
 
-So here we offer a default log parser that'll take
-typical nginx stats and turn them into dogstats.
+This container offers default log parser that will take
+typical nginx log stats and turn them into dogstats.
 
 It matches the following nginx log format, which
 should be included in a modified cloud endpoint
@@ -25,7 +25,7 @@ log_format timed_combined '$remote_addr - $remote_user [$time_local] '
     '$request_time $upstream_response_time $pipe';
 ```
 
-Upstream_response_time and pipe are not yet implemented.
+Pipe is not yet implemented.
 
 ### Metric tags
 
