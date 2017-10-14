@@ -63,7 +63,7 @@ Tags can be used to group metrics on order to drill down to the source of a metr
 ### path_aliases
 
 Many applications expose endpoints with paths containing dynamic segments representing resource identifiers. You
-may find it useful to collapse these into an single alias to reduce metric `path` [tag](#Tags) cardinality.
+may find it useful to collapse these into an single alias to reduce metric `path` [tag](#tags) cardinality.
 
 You can do so by volume mounting a yaml configuration file
 ```
