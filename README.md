@@ -38,7 +38,7 @@ Below is a table of collected metrics and tags
 
 The majority of metrics below are collected from [nginx log module provided information](http://nginx.org/en/docs/http/ngx_http_log_module.html)
 
-|  |  |
+| Name | Description |
 |------|-------------|
 | nginx.request_time.{avg,count,max,median} | statistics about request processing time in seconds with a milliseconds resolution; time elapsed between the first bytes were read from the client and the log write after the last bytes were sent to the client |
 | nginx.server_zone.responses.2xx | number of 2xx HTTP response code responses |
@@ -51,7 +51,7 @@ The majority of metrics below are collected from [nginx log module provided info
 
 Tags can be used to group metrics on order to drill down to the source of a metric
 
-| | |
+| Name | Description |
 |-|-|
 | status_code | precise HTTP response code |
 | path | the HTTP request path. see [path_aliases](#path_aliases) notes below  |
@@ -63,7 +63,7 @@ Tags can be used to group metrics on order to drill down to the source of a metr
 ### path_aliases
 
 Many applications expose endpoints with paths containing dynamic segments representing resource identifiers. You
-may find it useful to collapse these into an single alias to reduce metric `path` [tag](#tag) cardinality.
+may find it useful to collapse these into an single alias to reduce metric `path` [tag](#Tags) cardinality.
 
 You can do so by volume mounting a yaml configuration file
 ```
