@@ -59,7 +59,7 @@ Tags can be used to group metrics on order to drill down to the source of a metr
 | kube_namespace | (same as above)  |
 | container_name | kubernetes provided container name |
 | pod_name | kubernetes provided container name  in `{namespace}/{pod-name}` format  |
-| kube_* | labels provided by kubernetes will be provided as tags of the form `kube_{label-name}` with the kubernete's label value as the tag value |
+| kube_* | labels provided by kubernetes will be provided as tags of the form `kube_{label-name}` with the kubernetes label value as the tag value |
 ### path_aliases
 
 Many applications expose endpoints with paths containing dynamic segments representing resource identifiers. You
