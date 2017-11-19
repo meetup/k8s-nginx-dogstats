@@ -27,7 +27,13 @@ mkdir -p $DIR/target
 docker logs statsd-mock | sort > $DIR/target/statsd-mock.log
 docker rm -f statsd-mock
 
+echo "actual"
+cat $DIR/target/statsd-mock.log
+
 # Sort our expected output to match.
 sort $DIR/expected/statsd-mock.log > $DIR/target/statsd-mock-expected.log
+
+echo "expected"
+cat $DIR/target/statsd-mock-expected.log
 
 diff $DIR/target/statsd-mock-expected.log $DIR/target/statsd-mock.log
