@@ -7,7 +7,7 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
-  console.log(`${msg}`);
+  console.log(`${msg.toString().replace(/(gce_zone:.*)/, "gce_zone:us-central1-c,cloud_provider:gcp")}`);
 });
 
 server.on('listening', () => {
