@@ -9,8 +9,14 @@ docker run -d \
   node:7.7.1-alpine node /opt/index.js
 
 docker run -d \
+  --name gce-meta-mock \
+  -v $DIR/gce-meta-mock/index.js:/opt/index.js \
+  node:7.7.1-alpine node /opt/index.js
+
+docker run -d \
   --name fluentd \
   --link statsd-mock:dogstatsd.datadog \
+  --link gce-meta-mock:metadata.google.internal \
   -v $DIR/containers:/var/log/containers \
   -v $DIR/nginx_dogstats.yaml:/opt/nginx_dogstats.yaml \
   $publish_tag
@@ -22,18 +28,15 @@ sleep 5
 docker stop fluentd
 docker rm fluentd
 
+# Print logs from gce-meta-mock and delete container
+docker rm -f gce-meta-mock
+
 # Grab logs from statd-mock and sort them.
 mkdir -p $DIR/target
 docker logs statsd-mock | sort > $DIR/target/statsd-mock.log
 docker rm -f statsd-mock
 
-echo "actual"
-cat $DIR/target/statsd-mock.log
-
 # Sort our expected output to match.
 sort $DIR/expected/statsd-mock.log > $DIR/target/statsd-mock-expected.log
-
-echo "expected"
-cat $DIR/target/statsd-mock-expected.log
 
 diff $DIR/target/statsd-mock-expected.log $DIR/target/statsd-mock.log
