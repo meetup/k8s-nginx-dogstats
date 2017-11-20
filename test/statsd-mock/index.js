@@ -7,7 +7,12 @@ server.on('error', (err) => {
 });
 
 server.on('message', (msg, rinfo) => {
-  console.log(`${msg.toString().replace(/(gce_zone:.*)/, "gce_zone:us-central1-c,cloud_provider:gcp")}`);
+  const given = msg.toString();
+  const normalized = given.replace(/(gce_zone:.*)/, "gce_zone:us-central1-c,cloud_provider:gcp");
+  if (normlaized == given) {
+    console.log("something wasn't replaced with " + given);
+  }
+  console.log(normalized);
 });
 
 server.on('listening', () => {
