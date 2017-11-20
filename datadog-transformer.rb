@@ -1,21 +1,41 @@
 require 'net/http'
 require 'yaml'
+require 'json'
 
 class JSONTransformer
   def initialize
     @config = File.exists?("/opt/nginx_dogstats.yaml") ? YAML.load_file("/opt/nginx_dogstats.yaml") : {}
     @gce_zone = self.resolve_gce_zone
+    @aws_region = self.resolve_aws_region
   end
 
+  # https://cloud.google.com/compute/docs/storing-retrieving-metadata#querying
   def resolve_gce_zone
     uri = URI("http://metadata.google.internal/computeMetadata/v1/instance/zone")
     req = Net::HTTP::Get.new(uri)
     req['Metadata-Flavor'] = 'Google'
     begin
-      resp =  Net::HTTP.start(uri.hostname, uri.port) { |http| http.request(req) }
+      resp = Net::HTTP.start(uri.hostname, uri.port, open_timeout: 1, read_timeout: 1) { |http|
+        http.request(req)
+      }
       resp.body.split("/").last
     rescue Exception => msg
-      puts "failed to request instance zone: #{msg}"
+      puts "failed to request gce instance zone: #{msg}"
+    end
+  end
+
+  # http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-identity-documents.html
+  def resolve_aws_region
+    uri = URI("http://169.254.169.254/latest/dynamic/instance-identity/document")
+    req = Net::HTTP::Get.new(uri)
+    begin
+      resp = Net::HTTP.start(uri.hostname, uri.port, open_timeout: 1, read_timeout: 1) { |http|
+        http.request(req)
+      }
+      metadata = JSON.parse(resp.body)
+      metadata["region"]
+    rescue Exception => msg
+      puts "failed to request aws instance region: #{msg}"
     end
   end
 
@@ -39,7 +59,13 @@ class JSONTransformer
       end
     gce_metadata =
       if @gce_zone
-        { "gce_zone" => @gce_zone }
+        { "gce_zone" => @gce_zone, "cloud_provider": "gcp" }
+      else
+        {}
+      end
+    aws_metadata =
+      if @aws_region
+        { "aws_region" => @aws_region, "cloud_provider": "aws" }
       else
         {}
       end
@@ -60,7 +86,7 @@ class JSONTransformer
         "kube_namespace" => json["kubernetes"]["namespace_name"],
         "container_name" => json["kubernetes"]["container_name"],
         "pod_name" => json["kubernetes"]["namespace_name"] + "/" + json["kubernetes"]["pod_name"]
-      }.merge(labels).merge(gce_metadata)
+      }.merge(labels).merge(gce_metadata).merge(aws_metadata)
     }.merge(upstream_time)
 
     return record
