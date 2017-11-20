@@ -60,6 +60,9 @@ Tags can be used to group metrics on order to drill down to the source of a metr
 | container_name | kubernetes provided container name |
 | pod_name | kubernetes provided container name  in `{namespace}/{pod-name}` format  |
 | kube_* | labels provided by kubernetes will be provided as tags of the form `kube_{label-name}` with the kubernetes label value as the tag value |
+| gce_zone | if hosted in gce, the name of the zone the application is hosted in |
+| aws_region | if hosted in aws, the anem of the region the application is hosted in |
+| cloud_provider | either gcp or aws |
 ### path_aliases
 
 Many applications expose endpoints with paths containing dynamic segments representing resource identifiers. You
